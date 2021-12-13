@@ -6,11 +6,10 @@
 //  Copyright © 2018 sahilchaddha.com. All rights reserved.
 //
 
-const cp = require('child_process')
+const { spawn } = require('child_process');
 const path = require('path')
 
 const cacheKey = 'magicHome_cache'
-const spawn = cp.spawn
 
 const LightAgent = class {
 
@@ -138,9 +137,9 @@ const LightAgent = class {
 
   getDevices() {
     const self = this
-    const cmd = '/usr/bin/env ' + 'flux_led'
+    const cmd = '/usr/bin/env'
     self.log('Discovering Devices')
-    this.proc = spawn(cmd, ['-s'])
+    this.proc = spawn(cmd, ['flux_led', '-s'])
     this.proc.stdout.on('data', (data) => {
       const newData = '' + data
       self.log(newData)
