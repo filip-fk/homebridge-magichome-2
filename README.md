@@ -1,10 +1,9 @@
 # homebridge-magichome-platform
 
-[![NPM](https://nodei.co/npm/homebridge-magichome-platform.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/homebridge-magichome-platform/)
+[![NPM](https://nodei.co/npm/homebridge-magichome-platform-updated.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/homebridge-magichome-platform-updated/)
 
-[![npm](https://img.shields.io/npm/dm/homebridge-magichome-platform.svg)](https://www.npmjs.com/package/homebridge-magichome-platform)
-[![npm](https://img.shields.io/npm/v/homebridge-magichome-platform.svg)](https://www.npmjs.com/package/homebridge-magichome-platform)
-[![CircleCI](https://circleci.com/gh/sahilchaddha/homebridge-magichome-platform.svg?style=svg)](https://circleci.com/gh/sahilchaddha/homebridge-magichome-platform)
+[![npm](https://img.shields.io/npm/dm/homebridge-magichome-platform-updated.svg)](https://www.npmjs.com/package/homebridge-magichome-platform-updated)
+[![npm](https://img.shields.io/npm/v/homebridge-magichome-platform-updated.svg)](https://www.npmjs.com/package/homebridge-magichome-platform-updated)
 
 
 **A Homebridge plugin for devices running fade/strobe effects on the Magic Home Wi-Fi system.**
@@ -22,8 +21,9 @@ Can cycle through colors, sync all lights to strobe/fade.
 ## Installation
 
 ```shell
+    $ sudo pip3 install flux_led
     $ npm install -g --unsafe-perm homebridge
-    $ npm install -g --unsafe-perm homebridge-magichome-platform
+    $ npm install -g --unsafe-perm homebridge-magichome-platform-updated
 ```
 
 Edit config.json. Refer to `config-sample.json`.
@@ -55,7 +55,7 @@ Edit config.json. Refer to `config-sample.json`.
 
 ### Demo
 
-![Demo](https://raw.githubusercontent.com/sahilchaddha/homebridge-magichome-platform/master/demo.gif)
+![Demo](https://raw.githubusercontent.com/sameignatovich/homebridge-magichome-platform-updated/master/demo.gif)
 
 ## Compatible Devices
 
@@ -77,7 +77,7 @@ Any devices created by Zengge and running on the Magic Home Wi-Fi (or other apps
 {
     "platforms": [
         {
-            "platform": "MagicHome-Platform",
+            "platform": "MagicHome-Platform-Updated",
             "debug": true,
             "lights": [
                 {
