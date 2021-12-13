@@ -36,7 +36,7 @@ const Accessory = class {
   executeCommand(address, command, callback) {
     const exec = cp.exec
     const self = this
-    const cmd = '/usr/bin/env ', 'flux_led ' + lightAgent.getAddress(address) + command
+    const cmd = '/usr/bin/env ' + 'flux_led ' + lightAgent.getAddress(address) + command
     if (self.homebridge.debug) {
       self.log(cmd)
     }
