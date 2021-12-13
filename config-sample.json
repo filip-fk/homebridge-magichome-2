@@ -1,7 +1,7 @@
 {
     "platforms": [
         {
-            "platform": "MagicHome-Platform",
+            "platform": "MagicHome-Platform-Updated",
             "debug": true,
             "disableDiscovery": false,
             "lights": [
