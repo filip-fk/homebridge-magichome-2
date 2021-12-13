@@ -1,4 +1,4 @@
-# homebridge-magichome-platform
+# homebridge-magichome-platform-updated
 
 [![NPM](https://nodei.co/npm/homebridge-magichome-platform-updated.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/homebridge-magichome-platform-updated/)
 
