@@ -148,17 +148,3 @@ Setting Device `timeout` to 0, will disable polling device for status update.
 ```shell
     $ npm run lint
 ```
-
-## Need Help ?
-
-Get Slack Invite => `https://slackin-znyruquwmv.now.sh/`
-
-Slack Channel => `https://homebridgeteam.slack.com/messages/homebridge-magichome`
-
-Slack User => `@sahilchaddha`
-
-### Author
-
-Sahil Chaddha
-
-mail@sahilchaddha.com
