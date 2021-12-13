@@ -4,8 +4,8 @@ const PresetSwitch = require('./accessories/presetSwitch')
 const ResetSwitch = require('./accessories/resetSwitch')
 const lightAgent = require('./lib/lightAgent')
 
-const pluginName = 'homebridge-magichome-platform'
-const platformName = 'MagicHome-Platform'
+const pluginName = 'homebridge-magichome-platform-updated'
+const platformName = 'MagicHome-Platform-Updated'
 
 // Available Accessories
 var homebridge
