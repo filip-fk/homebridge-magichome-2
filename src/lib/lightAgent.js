@@ -138,7 +138,7 @@ const LightAgent = class {
 
   getDevices() {
     const self = this
-    const cmd = path.join(__dirname, '../flux_led.py')
+    const cmd = '/usr/bin/env ' + 'flux_led'
     self.log('Discovering Devices')
     this.proc = spawn(cmd, ['-s'])
     this.proc.stdout.on('data', (data) => {
