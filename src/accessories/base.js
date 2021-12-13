@@ -19,8 +19,8 @@ const Accessory = class {
     this.services.push(this.getInformationService());
   }
 
-  identify() {
-    this.callback();
+  identify(callback) {
+    callback();
   }
 
   getInformationService() {
@@ -47,6 +47,18 @@ const Accessory = class {
         callback(err, stdOut);
       }
     });
+  }
+
+  static getAccessoryServices() {
+    throw new Error('The getSystemServices method must be overridden.');
+  }
+
+  static getModelName() {
+    throw new Error('The getModelName method must be overridden.');
+  }
+
+  static getSerialNumber() {
+    throw new Error('The getSerialNumber method must be overridden.');
   }
 
   getServices() {
