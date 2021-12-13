@@ -1,4 +1,3 @@
-
 module.exports = {
   seven_color_cross_fade: 37,
   red_gradual_change: 38,
@@ -20,4 +19,4 @@ module.exports = {
   purple_strobe_flash: 54,
   white_strobe_flash: 55,
   seven_color_jumping: 56,
-}
+};
