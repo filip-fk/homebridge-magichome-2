@@ -7,6 +7,7 @@
 //
 
 const cp = require('child_process');
+const path = require('path');
 const lightAgent = require('../lib/lightAgent');
 
 const Accessory = class {
@@ -35,7 +36,7 @@ const Accessory = class {
   executeCommand(address, command, callback) {
     const { exec } = cp;
     const self = this;
-    const cmd = `/usr/bin/env flux_led ${lightAgent.getAddress(address)} ${command}`;
+    const cmd = '/usr/bin/env ' + `flux_led ${lightAgent.getAddress(address)}${command}`;
     if (self.homebridge.debug) {
       self.log(cmd);
     }
@@ -49,15 +50,15 @@ const Accessory = class {
     });
   }
 
-  static getAccessoryServices() {
+  getAccessoryServices() {
     throw new Error('The getSystemServices method must be overridden.');
   }
 
-  static getModelName() {
+  getModelName() {
     throw new Error('The getModelName method must be overridden.');
   }
 
-  static getSerialNumber() {
+  getSerialNumber() {
     throw new Error('The getSerialNumber method must be overridden.');
   }
 

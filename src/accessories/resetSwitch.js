@@ -67,11 +67,11 @@ const ResetSwitch = class extends Accessory {
     callback(null, false);
   }
 
-  static getModelName() {
+  getModelName() {
     return 'Reset Switch';
   }
 
-  static getSerialNumber() {
+  getSerialNumber() {
     return '00-001-ResetSwitch';
   }
 };

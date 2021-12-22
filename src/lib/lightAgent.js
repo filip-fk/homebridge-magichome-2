@@ -8,7 +8,6 @@
 
 const { spawn } = require('child_process');
 const path = require('path');
-const storage = require('node-persist');
 
 const cacheKey = 'magicHome_cache';
 
@@ -78,8 +77,9 @@ const LightAgent = class {
 
   setPersistPath(persistPath) {
     if (!this.storage) {
+      this.storage = require('node-persist');
       const self = this;
-      storage.init({
+      this.storage.init({
         dir: path.join(persistPath, 'magichome-platform'), forgiveParseErrors: true, ttl: false, logging: false,
       })
         .then(() => self.getCachedAddress())
@@ -99,7 +99,6 @@ const LightAgent = class {
     if (!res) {
       return this.cachedAddress;
     }
-    /* commented shitty code
     if (res.length > 0) {
       const lines = res.split('\n');
       if (lines.length < 3) {
@@ -122,7 +121,6 @@ const LightAgent = class {
       this.saveAddress(newDevices);
       return newDevices;
     }
-    */
     return this.cachedAddress;
   }
 

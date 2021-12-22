@@ -53,11 +53,11 @@ const LightBulb = class extends Accessory {
     this.executeCommand(this.ip, command, callback);
   }
 
-  static getModelName() {
+  getModelName() {
     return 'Light Bulb';
   }
 
-  static getSerialNumber() {
+  getSerialNumber() {
     return '00-001-LightBulb';
   }
 

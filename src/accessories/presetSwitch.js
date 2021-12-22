@@ -101,11 +101,11 @@ const PresetSwitch = class extends Accessory {
     callback(null, this.isOn);
   }
 
-  static getModelName() {
+  getModelName() {
     return 'Preset Switch';
   }
 
-  static getSerialNumber() {
+  getSerialNumber() {
     return '00-001-PresetSwitch';
   }
 };

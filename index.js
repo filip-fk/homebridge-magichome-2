@@ -10,10 +10,5 @@ module.exports = (homebridge) => {
     PersistPath: homebridge.user.storagePath(),
   };
   MagicHome.globals.setHomebridge(homebridgeGlobals);
-  homebridge.registerPlatform(
-    MagicHome.pluginName,
-    MagicHome.platformName,
-    MagicHome.platform,
-    true,
-  );
+  homebridge.registerPlatform(MagicHome.pluginName, MagicHome.platformName, MagicHome.platform, true);
 };
