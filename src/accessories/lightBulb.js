@@ -182,7 +182,7 @@ const LightBulb = class extends Accessory {
 
     const converted = convert.hsv.rgb([color.H, color.S, color.L]);
     this.logMessage('Setting New Color From ', this.ip, color, converted);
-    const base = `-x ${this.setup} -c `;
+    const base = `-c `;
     this.sendCommand(`${base + converted[0]},${converted[1]},${converted[2]}`);
   }
 };
