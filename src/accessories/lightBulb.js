@@ -171,7 +171,10 @@ const LightBulb = class extends Accessory {
   }
 
   setToWarmWhite() {
-    this.sendCommand('-w' + `${this.color.L}//2.55`);
+    if(this.color.L>128)
+      this.sendCommand('--warmlight ' + `${this.color.L}//2.55`);
+    else
+      this.sendCommand('--coldlight ' + `${this.color.L}//2.55`);
   }
 
   setToCurrentColor() {
