@@ -16,7 +16,7 @@ const LightBulb = class extends Accessory {
     this.ip = config.ip;
     this.setup = config.setup || 'RGBW';
     this.color = { H: 0, S: 0, L: 100 };
-    this.purewhite = config.purewhite || false;
+    this.purewhite = config.purewhite || true;
     this.timeout = config.timeout != null ? config.timeout : 60000;
     setTimeout(() => {
       this.updateState();
@@ -57,8 +57,8 @@ const LightBulb = class extends Accessory {
     return 'Light Bulb';
   }
 
-  getSerialNumber() {
-    return '00-001-LightBulb';
+  getSerialNumber(str) {
+    return str;
   }
 
   logMessage(...args) {
@@ -80,6 +80,7 @@ const LightBulb = class extends Accessory {
     self.getState((settings) => {
       self.isOn = settings.on;
       self.color = settings.color;
+      this.getSerialNumber(settings.snum)
       self.logMessage('Updating Device', self.ip, self.color, self.isOn);
       self.services[0]
         .getCharacteristic(this.homebridge.Characteristic.On)
@@ -101,10 +102,10 @@ const LightBulb = class extends Accessory {
     this.sendCommand('-i', (error, stdout) => {
       const settings = {
         on: false,
-        color: { H: 255, S: 100, L: 50 },
+        color: { H: 0, S: 0, L: 50 },
       };
-
-      const colors = stdout.match(/\(.*,.*,.*\)/g);
+      const snum
+      const colors = stdout.match(/Color:\s*\(\d+,\s*\d+,\s*\d+\)/g);
       const isOn = stdout.match(/\] ON /g);
       if (isOn && isOn.length > 0) {
         settings.on = true;
@@ -113,8 +114,8 @@ const LightBulb = class extends Accessory {
         // Remove last char )
         let str = colors.toString().substring(0, colors.toString().length - 1);
         // Remove First Char (
-        str = str.substring(1, str.length);
-        const rgbColors = str.split(',').map((item) => item.trim());
+        str = str.substring(8, str.length);
+        const rgbColors = str.split(', ').map((item) => item.trim());
         const converted = convert.rgb.hsv(rgbColors);
         settings.color = {
           H: converted[0],
@@ -170,7 +171,7 @@ const LightBulb = class extends Accessory {
   }
 
   setToWarmWhite() {
-    this.sendCommand(`-w ${this.color.L}`);
+    this.sendCommand('-w' + `${this.color.L}//2.55`);
   }
 
   setToCurrentColor() {
