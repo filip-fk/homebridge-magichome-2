@@ -152,12 +152,12 @@ const LightBulb = class extends Accessory {
         // Remove First Char (
         str = str.substring(8, str.length);
         let temperature = 1000000/temp;
-        const converted = temperature < 200 ? [200, 90, 90]:[45, 90, 65]; //blue
-        settings.color = {
-          H: converted[0],
-          S: converted[1],
-          L: converted[2],
-        };
+        // const converted = temperature < 200 ? [200, 90, 90]:[45, 90, 65]; //blue
+        // settings.color = {
+        //   H: converted[0],
+        //   S: converted[1],
+        //   L: converted[2],
+        // };
         settings.temp = temperature;
       }
 
@@ -219,9 +219,9 @@ const LightBulb = class extends Accessory {
 
   setToWarmWhite() {
     if(this.cTemp>200)
-      this.sendCommand('--warmlight 100'); //+ `${this.color.L}//2.55`);
+      this.sendCommand('--warmwhite 100'); //+ `${this.color.L}//2.55`);
     else
-      this.sendCommand('--coldlight 100'); //+ `${this.color.L}//2.55`);
+      this.sendCommand('--coldwhite 100'); //+ `${this.color.L}//2.55`);
   }
 
   setToCurrentColor() {
