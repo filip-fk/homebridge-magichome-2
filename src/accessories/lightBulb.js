@@ -16,7 +16,9 @@ const LightBulb = class extends Accessory {
     this.ip = config.ip;
     this.setup = config.setup || 'RGBW';
     this.color = { H: 0, S: 0, L: 100 };
+    this.cTemp = 0;
     this.purewhite = config.purewhite || true;
+    this.snum = config.ip || '1';
     this.timeout = config.timeout != null ? config.timeout : 60000;
     setTimeout(() => {
       this.updateState();
@@ -46,6 +48,11 @@ const LightBulb = class extends Accessory {
       .on('get', this.getBrightness.bind(this))
       .on('set', this.setBrightness.bind(this));
 
+    lightbulbService
+      .addCharacteristic(new this.homebridge.Characteristic.ColorTemperature())
+      .on('get', this.getTemperature.bind(this))
+      .on('set', this.setTemperature.bind(this));
+
     return [lightbulbService];
   }
 
@@ -57,8 +64,12 @@ const LightBulb = class extends Accessory {
     return 'Light Bulb';
   }
 
-  getSerialNumber(str) {
+  setSerialNumber(str) {
     return str;
+  }
+
+  getSerialNumber(){
+    return this.snum;
   }
 
   logMessage(...args) {
@@ -80,8 +91,9 @@ const LightBulb = class extends Accessory {
     self.getState((settings) => {
       self.isOn = settings.on;
       self.color = settings.color;
-      this.getSerialNumber(settings.snum)
-      self.logMessage('Updating Device h', self.ip, self.color, self.isOn);
+      self.cTemp = settings.temp;
+      self.snum = settings.snum;
+      self.logMessage('Updating Device', self.ip, self.color, self.isOn);
       self.services[0]
         .getCharacteristic(this.homebridge.Characteristic.On)
         .updateValue(self.isOn);
@@ -94,6 +106,9 @@ const LightBulb = class extends Accessory {
       self.services[0]
         .getCharacteristic(this.homebridge.Characteristic.Brightness)
         .updateValue(self.color.L);
+      self.services[0]
+        .getCharacteristic(this.homebridge.Characteristic.ColorTemperature)
+        .updateValue(self.cTemp);
       this.startTimer();
     });
   }
@@ -103,10 +118,17 @@ const LightBulb = class extends Accessory {
       const settings = {
         on: false,
         color: { H: 0, S: 0, L: 50 },
+        temp: 0
       };
       const snum = stdout.match(/^[A-Za-z0-9]+/g);
       const colors = stdout.match(/Color:\s*\(\d+,\s*\d+,\s*\d+\)/g);
+      const temp = stdout.match(/CCT: (\d+)/g);
+      const bright = stdout.match(/Brightness: \s*(\d+)/g);
       const isOn = stdout.match(/\] ON /g);
+      if (snum && snum.length > 0)
+      {
+        settings.snum = snum;
+      }
       if (isOn && isOn.length > 0) {
         settings.on = true;
       }
@@ -122,6 +144,21 @@ const LightBulb = class extends Accessory {
           S: converted[1],
           L: converted[2],
         };
+        settings.temp = 0;
+      }
+      else if(temp && temp.length > 0)
+      {
+        let str = temp.toString().substring(5, temp.toString().length);
+        // Remove First Char (
+        str = str.substring(8, str.length);
+        let temperature = 1000000/temp;
+        const converted = temperature < 200 ? [200, 90, 90]:[45, 90, 65]; //blue
+        settings.color = {
+          H: converted[0],
+          S: converted[1],
+          L: converted[2],
+        };
+        settings.temp = temperature;
       }
 
       callback(settings);
@@ -170,16 +207,26 @@ const LightBulb = class extends Accessory {
     callback();
   }
 
+  getTemperature(callback){
+    callback(null,this.cTemp);
+  }
+
+  setTemperature(value, callback){
+    this.cTemp = value;
+    this.setToWarmWhite();
+    callback();
+  }
+
   setToWarmWhite() {
-    if(this.color.L>128)
-      this.sendCommand('--warmlight ' + `${this.color.L}//2.55`);
+    if(this.cTemp>200)
+      this.sendCommand('--warmlight 100'); //+ `${this.color.L}//2.55`);
     else
-      this.sendCommand('--coldlight ' + `${this.color.L}//2.55`);
+      this.sendCommand('--coldlight 100'); //+ `${this.color.L}//2.55`);
   }
 
   setToCurrentColor() {
     const { color } = this;
-    if (color.S === 0 && color.H === 0 && this.purewhite) {
+    if (this.cTemp != 0) {
       this.setToWarmWhite();
       return;
     }
