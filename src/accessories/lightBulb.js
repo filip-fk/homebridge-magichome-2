@@ -104,7 +104,7 @@ const LightBulb = class extends Accessory {
         on: false,
         color: { H: 0, S: 0, L: 50 },
       };
-      const snum
+      const snum = stdout.match(/^[A-Za-z0-9]+/g);
       const colors = stdout.match(/Color:\s*\(\d+,\s*\d+,\s*\d+\)/g);
       const isOn = stdout.match(/\] ON /g);
       if (isOn && isOn.length > 0) {
