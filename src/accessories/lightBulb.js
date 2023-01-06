@@ -16,7 +16,7 @@ const LightBulb = class extends Accessory {
     this.ip = config.ip;
     this.setup = config.setup || 'RGBW';
     this.color = { H: 0, S: 0, L: 100 };
-    this.cTemp = 0;
+    this.cTemp = 141;
     this.purewhite = config.purewhite || true;
     this.snum = config.ip || '1';
     this.timeout = config.timeout != null ? config.timeout : 60000;
@@ -144,7 +144,7 @@ const LightBulb = class extends Accessory {
           S: converted[1],
           L: converted[2],
         };
-        settings.temp = 0;
+        settings.temp = 141;
       }
       else if(temp && temp.length > 0)
       {
@@ -226,7 +226,7 @@ const LightBulb = class extends Accessory {
 
   setToCurrentColor() {
     const { color } = this;
-    if (this.cTemp != 0) {
+    if (this.cTemp < 142) {
       this.setToWarmWhite();
       return;
     }
