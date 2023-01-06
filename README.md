@@ -2,9 +2,6 @@
 
 [![NPM](https://nodei.co/npm/homebridge-magichome-platform-updated.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/homebridge-magichome-platform-updated/)
 
-[![npm](https://img.shields.io/npm/dm/homebridge-magichome-platform-updated.svg)](https://www.npmjs.com/package/homebridge-magichome-platform-updated)
-[![npm](https://img.shields.io/npm/v/homebridge-magichome-platform-updated.svg)](https://www.npmjs.com/package/homebridge-magichome-platform-updated)
-
 
 **A Homebridge plugin for devices running fade/strobe effects on the Magic Home Wi-Fi system.**
 

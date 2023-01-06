@@ -81,7 +81,7 @@ const LightBulb = class extends Accessory {
       self.isOn = settings.on;
       self.color = settings.color;
       this.getSerialNumber(settings.snum)
-      self.logMessage('Updating Device', self.ip, self.color, self.isOn);
+      self.logMessage('Updating Device h', self.ip, self.color, self.isOn);
       self.services[0]
         .getCharacteristic(this.homebridge.Characteristic.On)
         .updateValue(self.isOn);
